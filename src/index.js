@@ -50,7 +50,7 @@ stream
   })
 
   // extract docblock tokens
-  .pipe(docblockParse({ onError }))
+  .pipe(docblockParse({ onError: true }))
   .on('error', onError)
   .on('end', () => {
     onEnd('docblockParse')
