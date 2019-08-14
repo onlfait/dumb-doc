@@ -1,14 +1,14 @@
 // @tag: rule
-// const EOL = '<eol>' // End Of Line
-// const PATHID = '<spaces>{<path:pathid>}<eol>'
-// const TYPES_DESC = '<spaces>{<types:id>}<spaces>?<description:any>'
-// const TYPES_NAME_DESC =
-//   '<spaces>{<types:ids>}<spaces><name:id><spaces>?<description:any>'
-const NAME_DESC = '<spaces><name:id><spaces>?<description:any>'
-const TYPES_NAME_VALUE_DESC =
-  '<spaces><:types><spaces><name:id><spaces>?<:value>?<spaces>?<:description>'
-const TYPES_PARAM_DESC =
-  '<spaces><:types><spaces><name:param><spaces>?<description:any>'
+const EOL = '<eol>' // End Of Line
+const PATHID = '<spaces><path:pathid><eol>'
+const NAME = `<spaces><:name>`
+const TYPES = '<spaces><:types>'
+const DESC = '<spaces>?<:description>'
+const NAME_DESC = `${NAME}${DESC}`
+const TYPES_DESC = `${TYPES}${DESC}`
+const TYPES_NAME = `${TYPES}${NAME}`
+const TYPES_PARAM_DESC = `${TYPES}<spaces><name:param>${DESC}`
+const TYPES_NAME_VALUE_DESC = `${TYPES_NAME}<spaces>?<:value>?${DESC}`
 
 module.exports = {
   '@const': TYPES_NAME_VALUE_DESC,
@@ -18,11 +18,20 @@ module.exports = {
   '@class': NAME_DESC,
   '@interface': NAME_DESC,
   '@method': NAME_DESC,
-  '@param': TYPES_PARAM_DESC
-  // '@return': TYPES_DESC,
-  // '@throws': TYPES_DESC,
-  // '@module': PATHID,
-  // '@private': EOL,
-  // '@protected': EOL,
-  // '@public': EOL
+  '@param': TYPES_PARAM_DESC,
+  '@property': TYPES_PARAM_DESC,
+  '@return': TYPES_DESC,
+  '@throws': TYPES_DESC,
+  '@constructor': EOL,
+  '@abstract': EOL,
+  '@private': EOL,
+  '@protected': EOL,
+  '@public': EOL,
+  '@ignore': EOL,
+  '@author': DESC,
+  '@license': DESC,
+  '@copyright': DESC,
+  '@example': DESC,
+  '@deprecated': DESC,
+  '@module': PATHID
 }

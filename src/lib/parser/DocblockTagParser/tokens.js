@@ -17,6 +17,7 @@ module.exports = {
   Alphanum: '[a-zA-Z0-9]',
   identifier: ['(?:_|<Chars>)(?:_|<Alphanum>)*', true],
   id: '<identifier>',
+  name: '<identifier>',
   identifiers: ['<identifier>(?:\\|<identifier>)*', true],
   ids: '<identifiers>',
   pathid: ['<identifier>(?:/<identifier>)*', true],

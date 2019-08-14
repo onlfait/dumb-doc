@@ -51,20 +51,16 @@ let DEBUG = 2;
  * debug() description...
  * @function debug
  */
-function debug(message, error = null) {
-
-}
+function debug(message, error = null) {}
 
 /**
  * debug() title !
  * @function debug debug() description...
  */
-function debug(message, error = null) {
-
-}
+function debug(message, error = null) {}
 
 // -----------------------------------------------------------------------------
-// @param
+// @param | @property
 // -----------------------------------------------------------------------------
 // @param {types} name
 // @param {types} params.name
@@ -82,9 +78,7 @@ function debug(message, error = null) {
  * @param {string} params.message
  * @param {null|bool} [error=null]
  */
-function debug(message, error = null) {
-
-}
+function debug(message, error = null) {}
 
 /**
  * debug() title !
@@ -96,6 +90,58 @@ function debug(message, error = null) {
  * @param {string}    params.message      Param message description
  * @param {null|bool} [params.error=null] Error param description
  */
-function debug(message, error = null) {
+function debug(message, error = null) {}
 
-}
+// -----------------------------------------------------------------------------
+// @return | @throws
+// -----------------------------------------------------------------------------
+// @return {types}
+// @return {types} description
+// -----------------------------------------------------------------------------
+
+/**
+ * pi() title !
+ * pi() description...
+ * @function pi
+ * @return {float}
+ */
+function pi(message, error = null) {}
+
+/**
+ * pi_or_42() title !
+ * pi_or_42() description...
+ * @function pi_or_42
+ * @return {float|int} Return description...
+ */
+function pi_or_42(message, error = null) {}
+
+/**
+ * Singletons
+ * @constructor
+ * @abstract
+ * @private
+ * @protected
+ * @public
+ * @ignore
+ */
+
+/**
+ * @author Sébastien Mischler <sebastien@onlfait.ch> (http://onlfait.ch)
+ * @license MIT
+ * @copyright Copyleft 2019 - Onl'Fait
+ * @example
+ *  const pi_or_die = pi_or_42();
+ *  console.log(pi_or_die);
+ * @deprecated This too dumb !
+ */
+
+/**
+ * @module dumb_doc/tests/_pouet
+ * @function _pouet
+ * @return {int}
+ */
+function _pouet() {}
+
+ // TODO
+ // @callback
+ // @exports
