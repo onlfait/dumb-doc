@@ -1,0 +1,31 @@
+// {identifier}: {regexp}
+// {identifier}: [ {regexp}, {bool} ]
+module.exports = {
+  dot: '\\.',
+  plus: '\\+',
+  minus: '\\-',
+  space: ' ',
+  spaces: ['<space>+', true],
+  char: '[a-z]',
+  Char: '[a-zA-Z]',
+  chars: ['<char>+', true],
+  Chars: ['<Char>+', true],
+  digit: '[0-9]',
+  digits: ['<digit>+', true],
+  number: ['[<plus>|<minus>]?<digits><dot>?<digits>?', true],
+  alphanum: '[a-z0-9]',
+  Alphanum: '[a-zA-Z0-9]',
+  identifier: ['(?:_|<Chars>)(?:_|<Alphanum>)*', true],
+  id: '<identifier>',
+  identifiers: ['<identifier>(?:\\|<identifier>)*', true],
+  ids: '<identifiers>',
+  pathid: ['<identifier>(?:/<identifier>)*', true],
+  type: '{<identifier>}',
+  types: '{<identifiers>}',
+  value: '=\\[[^\\]]+\\]',
+  eol: ['<spaces>?\n?', true],
+  any: '.*',
+  description: '<any>',
+  property: ['<identifier>(?:\\.<identifier>)*', true],
+  param: '\\[<property>=[^\\]]+\\]|<property>'
+}

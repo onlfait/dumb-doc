@@ -1,0 +1,19 @@
+{
+  "name": "dumb-doc",
+  "version": "0.0.1",
+  "description": "Dumb and verbose documentation generator",
+  "main": "./src/index.js",
+  "scripts": {
+    "main": "node .",
+    "lint": "eslint ./src/**/*.js",
+    "format": "prettier-eslint --write ./src/**/*.js"
+  },
+  "author": "Sébastien Mischler <sebastien@onlfait.ch>",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-eslint": "^10.0.2",
+    "eslint": "^6.1.0",
+    "prettier-eslint-cli": "^5.0.0"
+  }
+}
