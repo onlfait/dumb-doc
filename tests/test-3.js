@@ -138,10 +138,23 @@ function pi_or_42(message, error = null) {}
 /**
  * @module dumb_doc/tests/_pouet
  * @function _pouet
+ * @param {PouetCallback} cb Called on pouet pouet
  * @return {int}
  */
-function _pouet() {}
+function _pouet(cb) {}
 
- // TODO
- // @callback
- // @exports
+/**
+ * @callback PouetCallback
+ * @param {string} message Pouet message
+ */
+
+ /**
+  * @callback dumb_doc/tests/_pouet/PouetCallback
+  * @param {string} message Pouet message
+  */
+
+
+/**
+ * @exports dumb_doc/pouet
+ */
+module.exports = _pouet;

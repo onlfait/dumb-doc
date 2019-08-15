@@ -8,6 +8,8 @@ Dumb and verbose documentation generator
 
 ## @const | @var | @global
 
+Signatures
+
 ```
 @const {types} name
 @const {types} name =[value]
@@ -15,14 +17,30 @@ Dumb and verbose documentation generator
 @const {types} name =[value] description
 ```
 
+Returns
+
+```
+{ types, name [ , value [ , description ] ] }
+```
+
 ## @function | @class | @interface | @method
+
+Signatures
 
 ```
 @function name
 @function name description
 ```
 
+Returns
+
+```
+{ name [ , description ] }
+```
+
 ## @param | @property
+
+Signatures
 
 ```
 @param {types} name
@@ -33,14 +51,30 @@ Dumb and verbose documentation generator
 @param {types} [params.name=value] description
 ```
 
+Returns
+
+```
+{ types, name [ , value [ , description ] ] }
+```
+
 ## @return | @throws
+
+Signatures
 
 ```
 @return {types}
 @return {types} description
 ```
 
+Returns
+
+```
+{ types, [ , description ] }
+```
+
 ## @constructor | @abstract | @private | @protected | @public | @ignore
+
+Signatures
 
 ```
 @constructor
@@ -50,7 +84,15 @@ Dumb and verbose documentation generator
 @public
 ```
 
+Returns
+
+```
+{ }
+```
+
 ## @author | @license | @copyright | @example | @deprecated
+
+Signatures
 
 ```
 @author description
@@ -60,8 +102,37 @@ Dumb and verbose documentation generator
 @deprecated description
 ```
 
-## @module
+Returns
 
 ```
-@module path
+{ description }
+```
+
+## @module | @exports
+
+Signatures
+
+```
+@module pathid
+```
+
+Returns
+
+```
+{ pathid }
+```
+
+## @callback | @extends
+
+Signatures
+
+```
+@callback name
+@callback pathid/name
+```
+
+Returns
+
+```
+{ pathid [, module], name }
 ```

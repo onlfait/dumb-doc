@@ -1,3 +1,12 @@
+function callbackPathID({ value, tag }) {
+  const parts = value.split('/')
+  tag.data.name = parts.pop()
+  if (parts.length) {
+    tag.data.module = parts.join('/')
+  }
+  return value
+}
+
 module.exports = {
   types: function({ value }) {
     return value.replace(/^{|}$/g, '').split('|')
@@ -19,5 +28,8 @@ module.exports = {
       tag.data.default = parts.join('=')
     }
     return name
-  }
+  },
+
+  '@callback:pathid': callbackPathID,
+  '@extends:pathid': callbackPathID
 }
