@@ -45,9 +45,9 @@ Signatures
 ```
 @param {types} name
 @param {types} params.name
-@param {types} name description
-@param {types} params.name description
-@param {types} [name=value] description
+@param {types} name                description
+@param {types} params.name         description
+@param {types} [name=value]        description
 @param {types} [params.name=value] description
 ```
 
@@ -95,10 +95,10 @@ Returns
 Signatures
 
 ```
-@author description
-@license description
-@copyright description
-@example description
+@author     description
+@license    description
+@copyright  description
+@example    description
 @deprecated description
 ```
 
