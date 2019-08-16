@@ -11,7 +11,7 @@ const stream = createReadStream('./tests/test-3.js', 'utf8')
 const times = []
 
 function onError(error) {
-  debug.title(`ERROR: ${error.message}\n  at ${stream.path}:${error.line}`)
+  debug.title(`ERROR: ${error.message}\n  at ${error.file}:${error.line}`)
 }
 
 function onStart(group) {
@@ -36,7 +36,6 @@ onStart('readChar')
 stream
   // read char by char
   .pipe(readChar())
-  .on('error', onError)
   .on('end', () => {
     onEnd('readChar')
     onStart('docblockTokenize')
@@ -51,7 +50,7 @@ stream
   })
 
   // parse docblock tokens
-  .pipe(docblockParse({ onError: true }))
+  .pipe(docblockParse({ file: stream.path, onError: true }))
   .on('error', onError)
   .on('end', () => {
     onEnd('docblockParse')

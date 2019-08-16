@@ -1,5 +1,6 @@
 class Docblock {
-  constructor() {
+  constructor({ file } = {}) {
+    this.file = file
     this.position = { start: null, end: null }
     this.title = ''
     this.description = ''

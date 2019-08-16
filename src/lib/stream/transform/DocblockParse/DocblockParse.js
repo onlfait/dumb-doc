@@ -6,10 +6,11 @@ const { DocblockTagParser } = require('../../../parser/DocblockTagParser')
 const parser = new DocblockTagParser()
 
 class DocblockParse extends Transform {
-  constructor({ onError = true } = {}) {
+  constructor({ file, onError = true } = {}) {
     super({ objectMode: true })
     this._onError = onError
     this._docblock = null
+    this._file = file
   }
 
   _transform(token, encoding, callback) {
@@ -17,9 +18,11 @@ class DocblockParse extends Transform {
       const tag = parser.parse(token.value)
       if (tag.noRule || tag.noMatch) {
         const label = tag.noRule ? 'Unsupported' : 'Malformed'
-        const message = `${label} tag ${tag.name}`
-        const line = token.position.start.line
-        const error = { message, line }
+        const error = {
+          message: `${label} tag ${tag.name}`,
+          file: this._docblock.file,
+          line: token.position.start.line
+        }
         if (this._onError === true) {
           callback(error)
           return
@@ -35,7 +38,7 @@ class DocblockParse extends Transform {
       tag.position = token.position
       this._docblock.tags.push(tag)
     } else if (token.id === tokenIds.DOCBLOCK_OPEN) {
-      this._docblock = new Docblock()
+      this._docblock = new Docblock({ file: this._file })
       this._docblock.position.start = token.position.start
     } else if (token.id === tokenIds.DOCBLOCK_TITLE) {
       this._docblock.title = token.value
