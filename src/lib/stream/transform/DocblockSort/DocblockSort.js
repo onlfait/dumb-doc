@@ -2,9 +2,9 @@ const { Transform } = require('stream')
 const DocblockTree = require('./DocblockTree')
 
 class DocblockSort extends Transform {
-  constructor() {
+  constructor({ tree = null } = {}) {
     super({ objectMode: true })
-    this._tree = new DocblockTree()
+    this._tree = tree || new DocblockTree()
   }
 
   _transform(docblock, encoding, callback) {
