@@ -4,6 +4,7 @@ const { createReadStream } = require('fs')
 const { readChar } = require('./lib/stream/transform/ReadChar')
 const { docblockTokenize } = require('./lib/stream/transform/DocblockTokenize')
 const { docblockParse } = require('./lib/stream/transform/docblockParse')
+const { docblockSort } = require('./lib/stream/transform/docblockSort')
 const { stringify } = require('./lib/stream/transform/Stringify')
 
 const stream = createReadStream('./tests/test-3.js', 'utf8')
@@ -49,11 +50,19 @@ stream
     onStart('docblockParse')
   })
 
-  // extract docblock tokens
+  // parse docblock tokens
   .pipe(docblockParse({ onError: true }))
   .on('error', onError)
   .on('end', () => {
     onEnd('docblockParse')
+    onStart('docblockSort')
+  })
+
+  // to docblock tree
+  .pipe(docblockSort())
+  .on('error', onError)
+  .on('end', () => {
+    onEnd('docblockSort')
     onStart('stringify')
   })
 
