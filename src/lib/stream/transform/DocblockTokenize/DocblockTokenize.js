@@ -1,5 +1,7 @@
 const { Transform } = require('stream')
 const tokenIds = require('./token-ids')
+const Docblock = require('./Docblock')
+const DocblockToken = require('./DocblockToken')
 
 class DocblockTokenize extends Transform {
   constructor() {
@@ -60,11 +62,14 @@ class DocblockTokenize extends Transform {
     if (!this._chars.length) return
     const value = this._chars.map(c => c.value).join('')
     if (value.trim().length) {
-      this.push({
-        position: this._getLinePosition(),
-        id: tokenIds.SOURCE_TEXT,
-        value
-      })
+      this.push(
+        new DocblockToken({
+          position: this._getLinePosition(),
+          id: tokenIds.SOURCE_TEXT,
+          raw: value,
+          value
+        })
+      )
     }
     this._discardChars()
   }
@@ -84,27 +89,22 @@ class DocblockTokenize extends Transform {
     if (testValue[0] === '@') {
       // notify last tag line
       if (this._docblock.currentTag) {
-        this.push({
-          ...this._docblock.currentTag,
-          id: tokenIds.DOCBLOCK_TAG
-        })
+        this.push(this._docblock.currentTag)
         this._docblock.currentTag = null
       }
       // notify description
       if (this._docblock.description) {
-        this.push({
-          ...this._docblock.description,
-          id: tokenIds.DOCBLOCK_DESC
-        })
+        this.push(this._docblock.description)
         this._docblock.description = null
       }
       // memoize current tag line
       const tagLine = value.replace(/^ +/, '')
-      this._docblock.currentTag = {
+      this._docblock.currentTag = new DocblockToken({
+        id: tokenIds.DOCBLOCK_TAG,
         value: tagLine,
         position,
         raw
-      }
+      })
       this._discardChars()
       return
     }
@@ -119,23 +119,26 @@ class DocblockTokenize extends Transform {
     // title
     if (!this._docblock.title) {
       this._docblock.title = position
-      this.push({
-        id: tokenIds.DOCBLOCK_TITLE,
-        value: testValue,
-        position,
-        raw
-      })
+      this.push(
+        new DocblockToken({
+          id: tokenIds.DOCBLOCK_TITLE,
+          value: testValue,
+          position,
+          raw
+        })
+      )
       this._discardChars()
       return
     }
     // description start
     if (!this._docblock.description) {
       const description = value.replace(/^ +/, '')
-      this._docblock.description = {
+      this._docblock.description = new DocblockToken({
+        id: tokenIds.DOCBLOCK_DESC,
         value: description,
         position,
         raw
-      }
+      })
       this._discardChars()
       return
     }
@@ -149,50 +152,42 @@ class DocblockTokenize extends Transform {
   _endOfLines() {
     // notify description
     if (this._docblock.description) {
-      this.push({
-        ...this._docblock.description,
-        id: tokenIds.DOCBLOCK_DESC
-      })
+      this.push(this._docblock.description)
       this._docblock.description = null
     }
     // notify last tag line
     if (this._docblock.currentTag) {
-      this.push({
-        ...this._docblock.currentTag,
-        id: tokenIds.DOCBLOCK_TAG
-      })
+      this.push(this._docblock.currentTag)
       this._docblock.currentTag = null
     }
   }
 
   _openDocblock() {
-    const token = {
+    const token = new DocblockToken({
       position: {
         start: this._lastChar(-3).position,
         end: this._lastChar().position
       },
       id: tokenIds.DOCBLOCK_OPEN,
-      value: '/**'
-    }
+      value: '/**',
+      raw: '/**'
+    })
     this._discardChars(-3)
     this._processCode()
     this.push(token)
-    this._docblock = {
-      title: null,
-      description: null,
-      currentTag: null
-    }
+    this._docblock = new Docblock()
   }
 
   _closeDocblock() {
-    const token = {
+    const token = new DocblockToken({
       position: {
         start: this._lastChar(-2).position,
         end: this._lastChar().position
       },
       id: tokenIds.DOCBLOCK_CLOSE,
-      value: '*/'
-    }
+      value: '*/',
+      raw: '*/'
+    })
     this._discardChars(-2)
     this._processLine()
     this._endOfLines()
