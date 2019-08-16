@@ -82,6 +82,7 @@ Signatures
 @private
 @protected
 @public
+@ignore
 ```
 
 Returns
