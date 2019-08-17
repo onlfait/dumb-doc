@@ -1,4 +1,4 @@
-const DocblockTree = require('./DocblockTree')
+const DocblockMap = require('./DocblockMap')
 const DocblockSort = require('./DocblockSort')
 
 function docblockSort() {
@@ -6,7 +6,7 @@ function docblockSort() {
 }
 
 module.exports = {
-  DocblockTree,
+  DocblockMap,
   DocblockSort,
   docblockSort
 }
