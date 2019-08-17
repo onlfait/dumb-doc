@@ -2,9 +2,9 @@ const { Transform } = require('stream')
 const DocblockMap = require('./DocblockMap')
 
 class DocblockSort extends Transform {
-  constructor({ tree = null } = {}) {
+  constructor({ docblockMap = null } = {}) {
     super({ objectMode: true })
-    this._map = tree || new DocblockMap()
+    this._map = docblockMap || new DocblockMap()
     this._module = null
     this._class = null
   }

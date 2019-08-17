@@ -10,7 +10,8 @@ class FileParser {
     onData,
     breakOnWarning = true,
     onError = null,
-    onWarning = null
+    onWarning = null,
+    docblockMap = null
   } = {}) {
     if (typeof file.pipe === 'function') {
       this._stream = file
@@ -22,6 +23,7 @@ class FileParser {
     this._breakOnWarning = breakOnWarning
     this._onError = onError || this._onError
     this._onWarning = onWarning || this._onWarning
+    this._docblockMap = docblockMap
   }
 
   _onError(error) {
@@ -49,7 +51,7 @@ class FileParser {
         .on('warning', this._onWarning)
         .on('error', this._onError)
         // to DocblockMap
-        .pipe(docblockSort())
+        .pipe(docblockSort({ docblockMap: this._docblockMap }))
         .on('error', this._onError)
         .on('data', this._onData)
     )
