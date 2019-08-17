@@ -7,7 +7,7 @@ const parser = new DocblockTagParser()
 
 class DocblockParse extends Transform {
   constructor({ file, breakOnWarning = true } = {}) {
-    super({ objectMode: true })
+    super({ objectMode: true, highWaterMark: 1 })
     this._breakOnWarning = breakOnWarning
     this._docblock = null
     this._file = file

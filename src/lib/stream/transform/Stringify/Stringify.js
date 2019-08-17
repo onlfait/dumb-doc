@@ -2,7 +2,7 @@ const { Transform } = require('stream')
 
 class Stringify extends Transform {
   constructor() {
-    super({ objectMode: true })
+    super({ objectMode: true, highWaterMark: 1 })
   }
 
   _transform(data, encoding, callback) {

@@ -4,7 +4,7 @@ const Char = require('./Char')
 
 class ReadChar extends Transform {
   constructor() {
-    super({ objectMode: true })
+    super({ objectMode: true, highWaterMark: 1 })
     this._position = new Position()
   }
 

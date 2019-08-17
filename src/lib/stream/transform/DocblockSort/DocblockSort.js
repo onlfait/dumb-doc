@@ -3,7 +3,7 @@ const DocblockMap = require('./DocblockMap')
 
 class DocblockSort extends Transform {
   constructor({ docblockMap = null } = {}) {
-    super({ objectMode: true })
+    super({ objectMode: true, highWaterMark: 1 })
     this._map = docblockMap || new DocblockMap()
     this._module = null
     this._class = null

@@ -5,7 +5,7 @@ const DocblockToken = require('./DocblockToken')
 
 class DocblockTokenize extends Transform {
   constructor() {
-    super({ objectMode: true })
+    super({ objectMode: true, highWaterMark: 1 })
     this._inComment = false
     this._docblock = null
     this._chars = []
